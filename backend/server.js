@@ -4,6 +4,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import categoryRoutes from "./routes/categoryRoutes.js";
 import authorRoutes from "./routes/authorRoutes.js";
+import bookRoutes from "./routes/bookRoutes.js";
 
 dotenv.config();
 
@@ -11,10 +12,8 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
+app.use("/api/books", bookRoutes);
 
-app.get("/api/books", (req, res) => {
-    res.send("Books route works");
-});
 app.use("/api/categories", categoryRoutes);
 app.use("/api/authors", authorRoutes);
 
