@@ -2,6 +2,7 @@ import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from "dotenv";
+import categoryRoutes from "./routes/categoryRoutes.js";
 
 dotenv.config();
 
@@ -13,6 +14,7 @@ app.use(express.json());
 app.get("/api/books", (req, res) => {
     res.send("Books route works");
 });
+app.use("/api/categories", categoryRoutes);
 
 mongoose.connect(process.env.MONGO_URI)
 .then(() => {
