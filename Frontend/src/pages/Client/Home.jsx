@@ -1,15 +1,16 @@
 import { Link } from "react-router-dom";
-import ClientLayout from "../../components/client/clientLayout.jsx";
+import ClientLayout from "../../components/client/clientLayout";
 
-const Home = () => {
+const Home = ({ keycloak }) => {
   return (
-    <ClientLayout>
+    <ClientLayout keycloak={keycloak}>
       <section className="home-hero">
         <div className="home-hero-text">
+          <p className="home-badge">Librairie en ligne</p>
           <h1>Bienvenue dans notre BookStore</h1>
           <p className="home-description">
-            Découvrez des livres variés, ajoutez vos favoris au panier
-            et consultez l’historique de vos commandes.
+            Découvrez des livres variés, ajoutez vos favoris au panier et
+            consultez l’historique de vos commandes.
           </p>
 
           <div className="home-actions">
@@ -26,6 +27,7 @@ const Home = () => {
 
       <section className="home-section">
         <h2>Notre service</h2>
+
         <div className="home-cards">
           <div className="home-card">
             <h3>Livres variés</h3>

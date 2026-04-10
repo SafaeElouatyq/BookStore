@@ -5,7 +5,7 @@ const AdminSidebar = () => {
 
   return (
     <aside className="admin-sidebar">
-      <h2 className="sidebar-title">Book Store Admin</h2>
+      <h2 className="sidebar-title">Book Admin</h2>
 
       <ul className="sidebar-menu">
         <li>
@@ -41,6 +41,15 @@ const AdminSidebar = () => {
             className={location.pathname === "/admin/categories" ? "active" : ""}
           >
             Catégories
+          </Link>
+        </li>
+
+        <li>
+          <Link
+            to="/admin/orders"
+            className={location.pathname === "/admin/orders" ? "active" : ""}
+          >
+            Commandes
           </Link>
         </li>
       </ul>

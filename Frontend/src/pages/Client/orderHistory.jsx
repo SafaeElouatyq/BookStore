@@ -2,21 +2,16 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import ClientLayout from "../../components/client/clientLayout";
 
-const OrdersHistory = () => {
+const OrdersHistory = ({ keycloak }) => {
   const [orders, setOrders] = useState([]);
   const [message, setMessage] = useState("");
 
   const fetchOrders = async () => {
     try {
-      const user = JSON.parse(localStorage.getItem("user"));
-
-      if (!user) {
-        setMessage("Utilisateur non connecté");
-        return;
-      }
+      const keycloakId = keycloak.tokenParsed.sub;
 
       const res = await axios.get(
-        `http://localhost:5000/api/orders/my-orders/${user.keycloakId}`
+        `http://localhost:5000/api/orders/my-orders/${keycloakId}`
       );
 
       setOrders(res.data);
@@ -35,7 +30,7 @@ const OrdersHistory = () => {
   };
 
   return (
-    <ClientLayout>
+    <ClientLayout keycloak={keycloak}>
       <div className="client-page-header">
         <h1>Historique des commandes</h1>
         <p>Consultez toutes vos commandes précédentes.</p>

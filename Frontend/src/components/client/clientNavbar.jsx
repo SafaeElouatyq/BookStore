@@ -1,7 +1,13 @@
 import { Link, useLocation } from "react-router-dom";
 
-const ClientNavbar = () => {
+const ClientNavbar = ({ keycloak }) => {
   const location = useLocation();
+
+  const handleLogout = () => {
+    keycloak.logout({
+      redirectUri: "http://localhost:5173",
+    });
+  };
 
   return (
     <header className="client-navbar">
@@ -38,12 +44,9 @@ const ClientNavbar = () => {
             Historique
           </Link>
 
-          <Link
-            to="/deconnexion"
-            className={location.pathname === "/deconnexion" ? "active" : ""}
-          >
+          <button className="logout-btn" onClick={handleLogout}>
             Déconnexion
-          </Link>
+          </button>
         </nav>
       </div>
     </header>

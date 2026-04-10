@@ -18,10 +18,7 @@ const BookCard = ({ book, addToCart }) => {
 
         <p className="book-price">{book.price} DH</p>
 
-        <button
-          className="add-cart-btn"
-          onClick={() => addToCart(book)}
-        >
+        <button className="add-cart-btn" onClick={() => addToCart(book)}>
           <ShoppingCart size={18} />
           Ajouter au panier
         </button>
