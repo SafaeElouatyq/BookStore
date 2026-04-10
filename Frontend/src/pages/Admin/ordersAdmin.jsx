@@ -24,6 +24,24 @@ const OrdersAdmin = () => {
     return new Date(date).toLocaleDateString("fr-FR");
   };
 
+  const handleStatusChange = async (orderId, newStatus) => {
+    try {
+      const res = await axios.put(
+        `http://localhost:5000/api/orders/${orderId}/status`,
+        { status: newStatus }
+      );
+
+      setMessage(res.data.message);
+      fetchOrders();
+    } catch (error) {
+      console.error(error);
+      setMessage(
+        error.response?.data?.message ||
+          "Erreur lors de la mise à jour du statut"
+      );
+    }
+  };
+
   return (
     <AdminLayout>
       <div className="page-header">
@@ -54,7 +72,19 @@ const OrdersAdmin = () => {
                     <td>{order.user?.username || "-"}</td>
                     <td>{order.user?.email || "-"}</td>
                     <td>{order.totalAmount} DH</td>
-                    <td>{order.status}</td>
+                    <td>
+                      <select
+                        className="status-select"
+                        value={order.status}
+                        onChange={(e) =>
+                          handleStatusChange(order._id, e.target.value)
+                        }
+                      >
+                        <option value="En cours">En cours</option>
+                        <option value="Livrée">Livrée</option>
+                        <option value="Annulée">Annulée</option>
+                      </select>
+                    </td>
                     <td>{formatDate(order.createdAt)}</td>
                   </tr>
                 ))

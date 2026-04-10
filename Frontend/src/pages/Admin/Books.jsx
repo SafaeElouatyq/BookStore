@@ -154,8 +154,8 @@ const Books = () => {
 
         {mode === "list" ? (
           <button className="btn-primary top-btn" onClick={handleAddClick}>
-            <Plus size={18} />
-            Ajouter un livre
+           
+            + livre
           </button>
         ) : (
           <button className="btn-secondary top-btn" onClick={handleBackToList}>

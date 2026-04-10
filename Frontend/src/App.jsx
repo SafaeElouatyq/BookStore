@@ -14,54 +14,65 @@ import Cart from "./pages/Client/cart.jsx";
 import OrdersHistory from "./pages/Client/orderHistory.jsx";
 
 function App({ keycloak }) {
+  if (!keycloak || !keycloak.authenticated || !keycloak.tokenParsed) {
+    return <div>Chargement...</div>;
+  }
+
   const roles = keycloak.tokenParsed?.realm_access?.roles || [];
   const isAdmin = roles.includes("admin");
   const isClient = roles.includes("client");
 
-  return (
-    <BrowserRouter>
-      <Routes>
-        {isAdmin && (
-          <>
-            <Route
-              path="/admin/dashboard"
-              element={<AdminDashboard keycloak={keycloak} />}
-            />
-            <Route
-              path="/admin/books"
-              element={<BooksAdmin keycloak={keycloak} />}
-            />
-            <Route
-              path="/admin/authors"
-              element={<Authors keycloak={keycloak} />}
-            />
-            <Route
-              path="/admin/categories"
-              element={<Categories keycloak={keycloak} />}
-            />
-            <Route
-              path="/admin/orders"
-              element={<OrdersAdmin keycloak={keycloak} />}
-            />
-            <Route path="*" element={<Navigate to="/admin/dashboard" />} />
-          </>
-        )}
+  console.log("roles:", roles);
 
-        {isClient && !isAdmin && (
-          <>
-            <Route path="/" element={<Home keycloak={keycloak} />} />
-            <Route path="/livres" element={<Books keycloak={keycloak} />} />
-            <Route path="/panier" element={<Cart keycloak={keycloak} />} />
-            <Route
-              path="/historique-commandes"
-              element={<OrdersHistory keycloak={keycloak} />}
-            />
-            <Route path="*" element={<Navigate to="/" />} />
-          </>
-        )}
-      </Routes>
-    </BrowserRouter>
-  );
+  if (isAdmin) {
+    return (
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Navigate to="/admin/dashboard" />} />
+          <Route
+            path="/admin/dashboard"
+            element={<AdminDashboard keycloak={keycloak} />}
+          />
+          <Route
+            path="/admin/books"
+            element={<BooksAdmin keycloak={keycloak} />}
+          />
+          <Route
+            path="/admin/authors"
+            element={<Authors keycloak={keycloak} />}
+          />
+          <Route
+            path="/admin/categories"
+            element={<Categories keycloak={keycloak} />}
+          />
+          <Route
+            path="/admin/orders"
+            element={<OrdersAdmin keycloak={keycloak} />}
+          />
+          <Route path="*" element={<Navigate to="/admin/dashboard" />} />
+        </Routes>
+      </BrowserRouter>
+    );
+  }
+
+  if (isClient) {
+    return (
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home keycloak={keycloak} />} />
+          <Route path="/livres" element={<Books keycloak={keycloak} />} />
+          <Route path="/panier" element={<Cart keycloak={keycloak} />} />
+          <Route
+            path="/historique-commandes"
+            element={<OrdersHistory keycloak={keycloak} />}
+          />
+          <Route path="*" element={<Navigate to="/" />} />
+        </Routes>
+      </BrowserRouter>
+    );
+  }
+
+  return <div>Rôle utilisateur introuvable</div>;
 }
 
 export default App;

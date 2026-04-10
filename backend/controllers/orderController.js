@@ -91,3 +91,36 @@ export const getAllOrders = async (req, res) => {
     res.status(500).json({ message: "Erreur serveur" });
   }
 };
+
+export const updateOrderStatus = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { status } = req.body;
+
+    const allowedStatus = ["En cours", "Livrée", "Annulée"];
+
+    if (!allowedStatus.includes(status)) {
+      return res.status(400).json({ message: "Statut invalide" });
+    }
+
+    const order = await Order.findByIdAndUpdate(
+      id,
+      { status },
+      { new: true }
+    )
+      .populate("user", "username email role")
+      .populate("items.book", "title image price");
+
+    if (!order) {
+      return res.status(404).json({ message: "Commande non trouvée" });
+    }
+
+    res.status(200).json({
+      message: "Statut de la commande mis à jour avec succès",
+      order,
+    });
+  } catch (error) {
+    console.error("Erreur updateOrderStatus :", error);
+    res.status(500).json({ message: "Erreur serveur" });
+  }
+};
