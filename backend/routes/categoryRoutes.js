@@ -4,10 +4,9 @@ import { createCategory, deleteCategory, getCategories, UpdateCategory } from ".
 
 
 const router= Router();
-router.post("/add", createCategory);
+router.post("/", createCategory);
 router.get("/", getCategories);
-router.put("/update/:id", UpdateCategory);
-router.delete("/delete/:id", deleteCategory);
-
+router.put("/:id", UpdateCategory);
+router.delete("/:id", deleteCategory);
 
 export default router;

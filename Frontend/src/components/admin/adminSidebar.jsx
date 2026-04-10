@@ -13,25 +13,25 @@ const AdminSidebar = () => {
             to="/admin/dashboard"
             className={location.pathname === "/admin/dashboard" ? "active" : ""}
           >
-            Dashboard
+            Tableau de bord
           </Link>
         </li>
 
-        {/* <li>
+        <li>
           <Link
             to="/admin/books"
             className={location.pathname === "/admin/books" ? "active" : ""}
           >
-            Books
+            Livres
           </Link>
-        </li> */}
+        </li>
 
         <li>
           <Link
             to="/admin/authors"
             className={location.pathname === "/admin/authors" ? "active" : ""}
           >
-            Authors
+            Auteurs
           </Link>
         </li>
 
@@ -40,7 +40,7 @@ const AdminSidebar = () => {
             to="/admin/categories"
             className={location.pathname === "/admin/categories" ? "active" : ""}
           >
-            Categories
+            Catégories
           </Link>
         </li>
       </ul>

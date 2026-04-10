@@ -2,8 +2,16 @@
   box-sizing: border-box;
 }
 
-body {
+html,
+body,
+#root {
   margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100vh;
+}
+
+body {
   font-family: Arial, sans-serif;
   background: #f5f7fb;
   color: #1f2937;
@@ -15,12 +23,13 @@ a {
 
 .admin-layout {
   display: flex;
+  width: 100%;
   min-height: 100vh;
 }
 
-/* SIDEBAR */
 .admin-sidebar {
   width: 240px;
+  min-width: 240px;
   background: #ffffff;
   border-right: 1px solid #e5e7eb;
   padding: 24px 16px;
@@ -30,7 +39,7 @@ a {
   font-size: 22px;
   font-weight: bold;
   color: #2563eb;
-  margin-bottom: 30px;
+  margin: 0 0 30px;
   text-align: center;
 }
 
@@ -63,14 +72,22 @@ a {
   color: #111827;
 }
 
-/* CONTENT */
 .admin-content {
   flex: 1;
+  width: calc(100% - 240px);
   padding: 30px;
 }
 
 .page-header {
   margin-bottom: 24px;
+}
+
+.page-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
 }
 
 .page-header h1 {
@@ -84,7 +101,6 @@ a {
   color: #6b7280;
 }
 
-/* CARDS */
 .admin-card,
 .dashboard-card {
   background: #ffffff;
@@ -94,14 +110,8 @@ a {
   border: 1px solid #eef2f7;
 }
 
-.admin-grid {
-  display: grid;
-  grid-template-columns: 340px 1fr;
-  gap: 20px;
-}
-
-.single-card {
-  max-width: 750px;
+.form-card {
+  max-width: 720px;
 }
 
 .admin-card h2 {
@@ -111,7 +121,6 @@ a {
   font-size: 22px;
 }
 
-/* FORM */
 .admin-form {
   display: flex;
   flex-direction: column;
@@ -138,7 +147,6 @@ a {
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
 }
 
-/* BUTTONS */
 .form-actions,
 .action-buttons {
   display: flex;
@@ -147,15 +155,19 @@ a {
 }
 
 .btn-primary,
-.btn-secondary,
-.btn-edit,
-.btn-delete {
+.btn-secondary {
   border: none;
   border-radius: 10px;
-  padding: 10px 14px;
+  padding: 11px 16px;
   cursor: pointer;
   font-weight: 600;
   transition: 0.3s;
+}
+
+.top-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .btn-primary {
@@ -176,25 +188,36 @@ a {
   background: #d1d5db;
 }
 
-.btn-edit {
+.icon-btn {
+  border: none;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.edit-btn {
   background: #dbeafe;
   color: #1d4ed8;
 }
 
-.btn-edit:hover {
+.edit-btn:hover {
   background: #bfdbfe;
 }
 
-.btn-delete {
+.delete-btn {
   background: #fee2e2;
   color: #dc2626;
 }
 
-.btn-delete:hover {
+.delete-btn:hover {
   background: #fecaca;
 }
 
-/* ALERT */
 .alert-box {
   background: #eff6ff;
   color: #1d4ed8;
@@ -204,7 +227,6 @@ a {
   margin-bottom: 20px;
 }
 
-/* TABLE */
 .table-wrapper {
   overflow-x: auto;
 }
@@ -237,10 +259,9 @@ a {
   padding: 20px;
 }
 
-/* DASHBOARD */
 .dashboard-cards {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(220px, 1fr));
   gap: 18px;
 }
 
@@ -254,7 +275,6 @@ a {
   color: #6b7280;
 }
 
-/* RESPONSIVE */
 @media (max-width: 900px) {
   .admin-layout {
     flex-direction: column;
@@ -262,12 +282,14 @@ a {
 
   .admin-sidebar {
     width: 100%;
+    min-width: 100%;
     border-right: none;
     border-bottom: 1px solid #e5e7eb;
   }
 
-  .admin-grid {
-    grid-template-columns: 1fr;
+  .admin-content {
+    width: 100%;
+    padding: 20px;
   }
 
   .dashboard-cards {

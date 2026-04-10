@@ -1,5 +1,4 @@
 import AdminLayout from "./AdminLayout";
-import "../../styles/admin.css";
 
 const AdminDashboard = () => {
   return (

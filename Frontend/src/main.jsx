@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
 import keycloak from "./keyCloak.js";
+import "./styles/admin.css";
 
 keycloak
   .init({

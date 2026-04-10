@@ -4,10 +4,10 @@ import { createAuthor, deleteAuthor, getAuthors, updateAuthor } from "../control
 
 
 const router= Router();
-router.post("/add", createAuthor);
+router.post("/", createAuthor);
 router.get("/", getAuthors);
-router.put("/update/:id", updateAuthor);
-router.delete("/delete/:id", deleteAuthor);
+router.put("/:id", updateAuthor);
+router.delete("/:id", deleteAuthor);
 
 
 export default router;

@@ -1,13 +1,12 @@
-import AdminSidebar from "../../components/admin/adminSidebar";
+import AdminSidebar from "../../components/admin/AdminSidebar.jsx";
 
 const AdminLayout = ({ children }) => {
   return (
-    <div className="d-flex">
+    <div className="admin-layout">
       <AdminSidebar />
-
-      <div className="p-4 w-100">
+      <main className="admin-content">
         {children}
-      </div>
+      </main>
     </div>
   );
 };
