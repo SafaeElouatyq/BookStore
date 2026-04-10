@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
+import axios from "axios";
 import { Trash2, Plus, Minus, ShoppingCart } from "lucide-react";
 import ClientLayout from "../../components/client/clientLayout";
 
 const Cart = () => {
   const [cartItems, setCartItems] = useState([]);
+  const [message, setMessage] = useState("");
 
   useEffect(() => {
     const storedCart = JSON.parse(localStorage.getItem("cart")) || [];
@@ -17,20 +19,15 @@ const Cart = () => {
 
   const increaseQuantity = (id) => {
     const updatedCart = cartItems.map((item) =>
-      item._id === id
-        ? { ...item, quantity: item.quantity + 1 }
-        : item
+      item._id === id ? { ...item, quantity: item.quantity + 1 } : item
     );
-
     updateCart(updatedCart);
   };
 
   const decreaseQuantity = (id) => {
     const updatedCart = cartItems
       .map((item) =>
-        item._id === id
-          ? { ...item, quantity: item.quantity - 1 }
-          : item
+        item._id === id ? { ...item, quantity: item.quantity - 1 } : item
       )
       .filter((item) => item.quantity > 0);
 
@@ -47,12 +44,45 @@ const Cart = () => {
     0
   );
 
+  const handleCheckout = async () => {
+    try {
+      const user = JSON.parse(localStorage.getItem("user"));
+
+      if (!user) {
+        setMessage("Utilisateur non connecté");
+        return;
+      }
+
+      const payload = {
+        items: cartItems,
+        totalAmount: totalPrice,
+        keycloakId: user.keycloakId,
+        username: user.username,
+        email: user.email,
+      };
+
+      const res = await axios.post("http://localhost:5000/api/orders", payload);
+
+      setMessage(res.data.message || "Commande validée avec succès");
+      localStorage.removeItem("cart");
+      setCartItems([]);
+    } catch (error) {
+      console.error(error);
+      setMessage(
+        error.response?.data?.message ||
+          "Erreur lors de la validation de la commande"
+      );
+    }
+  };
+
   return (
     <ClientLayout>
       <div className="client-page-header">
         <h1>Panier</h1>
         <p>Consultez les livres ajoutés à votre panier.</p>
       </div>
+
+      {message && <div className="client-alert">{message}</div>}
 
       {cartItems.length === 0 ? (
         <div className="empty-cart">
@@ -119,7 +149,7 @@ const Cart = () => {
               <strong>{totalPrice} DH</strong>
             </div>
 
-            <button className="checkout-btn">
+            <button className="checkout-btn" onClick={handleCheckout}>
               Valider la commande
             </button>
           </div>
