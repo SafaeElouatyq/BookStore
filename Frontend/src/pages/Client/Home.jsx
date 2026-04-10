@@ -6,7 +6,6 @@ const Home = () => {
     <ClientLayout>
       <section className="home-hero">
         <div className="home-hero-text">
-          <p className="home-badge">Librairie en ligne</p>
           <h1>Bienvenue dans notre BookStore</h1>
           <p className="home-description">
             Découvrez des livres variés, ajoutez vos favoris au panier
