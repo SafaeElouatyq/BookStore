@@ -111,8 +111,8 @@ const Authors = () => {
 
         {mode === "list" ? (
           <button className="btn-primary top-btn" onClick={handleAddClick}>
-            <Plus size={18} />
-            Ajouter un auteur
+            
+            + auteur
           </button>
         ) : (
           <button className="btn-secondary top-btn" onClick={handleBackToList}>

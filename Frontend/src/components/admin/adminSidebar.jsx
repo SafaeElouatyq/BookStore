@@ -17,14 +17,14 @@ const AdminSidebar = () => {
           </Link>
         </li>
 
-        <li>
+        {/* <li>
           <Link
             to="/admin/books"
             className={location.pathname === "/admin/books" ? "active" : ""}
           >
             Books
           </Link>
-        </li>
+        </li> */}
 
         <li>
           <Link
