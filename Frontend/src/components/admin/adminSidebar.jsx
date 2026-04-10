@@ -5,7 +5,7 @@ const AdminSidebar = () => {
 
   return (
     <aside className="admin-sidebar">
-      <h2 className="sidebar-title">Book Admin</h2>
+      <h2 className="sidebar-title">Book Store Admin</h2>
 
       <ul className="sidebar-menu">
         <li>
