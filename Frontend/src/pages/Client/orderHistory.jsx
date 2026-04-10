@@ -1,4 +1,4 @@
-import ClientLayout from "../../components/client/clientLayout,jsx";
+import ClientLayout from "../../components/client/clientLayout";
 
 const OrdersHistory = () => {
   return (
